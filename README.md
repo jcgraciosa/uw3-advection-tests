@@ -24,12 +24,12 @@ B.2. Relative norm of the vorticity, $\omega$, as a function of time step, $\Del
 
 ![Alt text](out/simp_irreg-adv-0.5-w_norm-order1-regression-Oct-1-2024.png)
 
-### B. Structured quadrilatetral mesh
-B.1. Relative norm of the velocity as a function of time step, $\Delta t$, and Courant number, C: 
+### C. Structured quadrilatetral mesh
+C.1. Relative norm of the velocity as a function of time step, $\Delta t$, and Courant number, C: 
 
 ![Alt text](out/struct_quad-adv-0.5-v_norm-order1-regression-Oct-1-2024.png)
 
-B.2. Relative norm of the vorticity, $\omega$, as a function of time step, $\Delta t$, and Courant number, C: 
+C.2. Relative norm of the vorticity, $\omega$, as a function of time step, $\Delta t$, and Courant number, C: 
 
 ![Alt text](out/struct_quad-adv-0.5-w_norm-order1-regression-Oct-1-2024.png)
 
