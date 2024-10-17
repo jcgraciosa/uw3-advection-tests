@@ -3,7 +3,7 @@
 ##PBS -P m18
 #PBS -P el06
 #PBS -q normal
-#PBS -l walltime=01:00:00
+#PBS -l walltime=00:10:00
 #PBS -l mem=192GB
 #PBS -l jobfs=1GB
 #PBS -l ncpus=8

@@ -50,8 +50,10 @@ dt_ns = args.dt
 maxsteps = args.ms
 
 mesh_use = str(os.getenv("MESH_USE", "struct_quad"))
+sl_order = int(os.getenv("ORDER", 1))
 if uw.mpi.rank == 0:
     print(f"Mesh used: {mesh_use}")
+    print(f"SL order used: {sl_order}")
 res = int(os.getenv("RES", 8))
 
 #if dt_ns == 0.1:
@@ -68,7 +70,9 @@ vel_type = "v_rigid_body" # v_irrotational or v_rigid_body
 
 qdeg     = 3
 Vdeg     = 2
-sl_order = 1
+#sl_order = 1
+
+show_vis = False
 
 if uw.mpi.rank == 0:
     print(maxsteps*dt_ns*velocity)
@@ -76,8 +80,7 @@ if uw.mpi.rank == 0:
 # %%
 outdir = "/Users/jgra0019/Documents/codes/uw3-dev/Navier-Stokes-benchmark/plots-SLCN-test"
 
-#outfile = f"VecAdv-run{idx}"
-outfile = f"VecAdv-run" # overwrite outputted files to reduce total size
+outfile = f"VecAdv-run{idx}"
 outdir = f"./VecAdv-{mesh_use}-{vel_type}-res{res}-order{sl_order}-dt{dt_ns}"
 
 if prev == 0:
@@ -85,8 +88,7 @@ if prev == 0:
     infile = None
 else:
     prev_idx = int(idx) - 1
-    #infile = f"VecAdv-run{prev_idx}"
-    infile = f"VecAdv-run"
+    infile = f"VecAdv-run{prev_idx}"
 
 if uw.mpi.rank == 0:
     os.makedirs(outdir, exist_ok=True)
@@ -174,27 +176,27 @@ def calculate_vel_omega_rel_norm():
 
     return omega_norm, vec_norm
 
-# def calculate_vel_omega_rms(offset = 0):
-#     # NOTE: function not used
-#     # define domain where we perform the integral
-#     min_dom = 0.1 * x0 + offset
-#     max_dom = x0 + offset + 0.9 * x0
+def calculate_vel_omega_rms(offset = 0):
 
-#     #print(f"min: {min_dom}, max: {max_dom}")
+    # define domain where we perform the integral
+    min_dom = 0.1 * x0 + offset
+    max_dom = x0 + offset + 0.9 * x0
 
-#     x,y = mesh.X
+    #print(f"min: {min_dom}, max: {max_dom}")
 
-#     mask_fn = sympy.Piecewise((1, (x > min_dom) &  (x < max_dom)), (0., True))
+    x,y = mesh.X
 
-#     # sympy functions corresponding to integrals
-#     vec_tst_mag     = vec_tst.sym.dot(vec_tst.sym)
-#     omega_tst_sq    = omega_tst.sym**2
-#     area            = uw.maths.Integral(mesh, mask_fn * 1.0).evaluate()
+    mask_fn = sympy.Piecewise((1, (x > min_dom) &  (x < max_dom)), (0., True))
 
-#     vec_tst_rms     = math.sqrt(uw.maths.Integral(mesh, mask_fn * vec_tst_mag).evaluate() / area)
-#     omega_tst_rms   = math.sqrt(uw.maths.Integral(mesh, mask_fn * omega_tst_sq).evaluate() / area)
+    # sympy functions corresponding to integrals
+    vec_tst_mag     = vec_tst.sym.dot(vec_tst.sym)
+    omega_tst_sq    = omega_tst.sym**2
+    area            = uw.maths.Integral(mesh, mask_fn * 1.0).evaluate()
 
-#     return omega_tst_rms, vec_tst_rms
+    vec_tst_rms     = math.sqrt(uw.maths.Integral(mesh, mask_fn * vec_tst_mag).evaluate() / area)
+    omega_tst_rms   = math.sqrt(uw.maths.Integral(mesh, mask_fn * omega_tst_sq).evaluate() / area)
+
+    return omega_tst_rms, vec_tst_rms
 
 # %%
 # #### Create the SL object
