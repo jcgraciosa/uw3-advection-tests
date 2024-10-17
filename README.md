@@ -13,7 +13,7 @@ A.1. Relative norm of the velocity as a function of time step, $\Delta t$, and C
 
 A.2. Relative norm of the vorticity, $\omega$, as a function of time step, $\Delta t$, and Courant number, C: 
 
-![Alt text](out/simp_reg-adv-0.5-w_norm-order1-regression-Oct-1-2024)
+![Alt text](out/simp_reg-adv-0.5-w_norm-order1-regression-Oct-1-2024.png)
 
 ### B. Irregular simplex mesh
 B.1. Relative norm of the velocity as a function of time step, $\Delta t$, and Courant number, C: 
